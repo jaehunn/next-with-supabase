@@ -14,6 +14,8 @@ export default function Login({
 
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
+    /** Server Action -> use ServerClient */
     const supabase = createClient();
 
     const { error } = await supabase.auth.signInWithPassword({
@@ -34,6 +36,8 @@ export default function Login({
     const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
+    /** Server Action -> use ServerClient */
     const supabase = createClient();
 
     const { error } = await supabase.auth.signUp({
@@ -50,6 +54,14 @@ export default function Login({
 
     return redirect("/login?message=Check email to continue sign in process");
   };
+
+  /**
+   * @see {Email-Templates} https://supabase.com/dashboard/project/kcqstxacrcuarmpmyeta/auth/templates
+   *
+   * <h2>Confirm your signup</h2>
+   * <p>Follow this link to confirm your user:</p>
+   * <p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup">Confirm your mail</a></p>
+   */
 
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
