@@ -13,6 +13,7 @@ export const createClient = () => {
      * cookie name: sb-<project_ref>-auth-token
      */
     {
+      // supabase client 가 cookie 에 접근할 수 있도록 CRUD 오브젝트를 설정한다.
       cookies: {
         get(name: string) {
           return cookieStore.get(name)?.value;
@@ -20,7 +21,7 @@ export const createClient = () => {
         set(name: string, value: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value, ...options });
-          } catch (error) {
+          } catch (err) {
             // The `set` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
@@ -29,7 +30,7 @@ export const createClient = () => {
         remove(name: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value: "", ...options });
-          } catch (error) {
+          } catch (err) {
             // The `delete` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
