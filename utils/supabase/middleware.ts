@@ -5,12 +5,16 @@ export const updateSession = async (request: NextRequest) => {
   // This `try/catch` block is only here for the interactive tutorial.
   // Feel free to remove once you have Supabase connected.
   try {
+    /** @see https://nextjs.org/docs/app/api-reference/functions/next-response#next */
     // Create an unmodified response
     let response = NextResponse.next({
       request: {
         headers: request.headers,
       },
     });
+
+    /** 1. client(request) -> next server -> server(response)*/
+    /** 2. server(request) -> next server -> client(response)*/
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -64,6 +68,9 @@ export const updateSession = async (request: NextRequest) => {
     // https://supabase.com/docs/guides/auth/server-side/nextjs
     await supabase.auth.getUser();
 
+    // Browser response
+    // Test
+    // response.headers.set("set-header-test", "hello");
     return response;
   } catch (e) {
     // If you are here, a Supabase client could not be created!
